@@ -1,0 +1,33 @@
+{
+    "builders": [
+      {
+        "type": "amazon-ebs",
+        "region": "sa-east-1",
+        "source_ami": "ami-0da62eb5869c785b9",
+        "instance_type": "t2.micro",
+        "ssh_username": "ec2-user",
+        "ami_name": "packer-testing-ebs-{{isotime | clean_resource_name}}",
+        "ssh_timeout": "5m",
+        "iam_instance_profile": "SSMAutomationPackerCF",
+        "vpc_id": "",
+        "subnet_id": "",
+        "security_group_id": "",
+        "associate_public_ip_address": false,
+        "run_tags": {
+          "Name": "web-server-packer"
+        },
+        "tags": {
+          "Name": "webserver"
+        }
+      }
+    ],
+    "provisioners": [
+      {
+        "type": "shell",
+        "inline": [
+            "sudo yum update -y",
+            "echo \"isso é um teste\""
+        ]
+      }
+    ]
+  }
